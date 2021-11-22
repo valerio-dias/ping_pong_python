@@ -3,6 +3,7 @@ from raquete import Raquete
 from bola import Bola
 from placar import Placar
 import time
+import pygame
 
 tela = Screen()
 tela.setup(width=800, height=600)
@@ -14,6 +15,9 @@ d_raquete = Raquete((350, 0), 'red')
 e_raquete = Raquete((-350, 0), 'blue')
 bola = Bola()
 placar = Placar()
+# pg = pygame.init()
+pygame.mixer.init()
+som_raquete = pygame.mixer.Sound('paddle_sound.wav')
 
 tela.listen()
 tela.onkeypress(d_raquete.pra_cima, 'Up')
@@ -31,6 +35,7 @@ while jogo_on:
         bola.quique_y()
 
     if bola.distance(d_raquete) < 50 and bola.xcor() > 320 or bola.distance(e_raquete) < 50 and bola.xcor() < -320:
+        som_raquete.play()
         bola.quique_x()
 
     if bola.xcor() > 380:
